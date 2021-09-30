@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# spring-mvc ![Profile View Counter](https://komarev.com/ghpvc/?username=MiguelProgrammer)
-Spring MVC com Spring Boot, Thymeleaf e Bootstrap
-=======
+
 # spring-mvc 2 ![Profile View Counter](https://komarev.com/ghpvc/?username=MiguelProgrammer)
 Spring MVC 2 - Autenticação com Spring Security, API Rest e AJAX
 
@@ -28,5 +25,3 @@ Spring MVC 2 - Autenticação com Spring Security, API Rest e AJAX
 
 ## Sequência - status produtos
 ![img](https://i.imgur.com/Qsd5w6d.jpeg)
-
->>>>>>> d381df7ea32796d38977ba14b9e18c61b0c8db92
