@@ -2,8 +2,8 @@
 # spring-mvc 2 ![Profile View Counter](https://komarev.com/ghpvc/?username=MiguelProgrammer)
 Spring MVC 2 - Autenticação com Spring Security, API Rest e AJAX
 
-## Fomrulário de login - Security Basic
-![img](https://i.imgur.com/kiHEgr4.jpg)
+## Formulário de Login - Atualizado
+![img](https://i.imgur.com/dZJNh8z.jpg)
 
 ## Formulário - Novo Produto
 ![img](https://i.imgur.com/jhB5tTU.jpg)
