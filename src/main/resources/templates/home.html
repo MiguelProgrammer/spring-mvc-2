@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="~{base :: head}"></head>
+<div th:replace="~{base::titulo('Meus Pedidos')}"></div>
+
+<div class="mt-2 d-flex justify-content-between mt-4">
+	<div class="nav nav-tabs col-10" id="nav-tab" role="tablist">
+		<a href="/home" class="nav-link">Todos</a>
+		<a th:classappend="${status} == 'aguardando' ? 'active'"  href="/home/aguardando" class="nav-link">Aguardando</a>
+		<a th:classappend="${status} == 'aprovado' ? 'active'"  href="/home/aprovado" class="nav-link">Aprovado</a>
+		<a th:classappend="${status} == 'entregue' ? 'active'"  href="/home/entregue" class="nav-link">Entregue</a>
+	</div>
+	<div class="ms-9 col-sm-1">
+		<a href="/pedido/formulario"
+			class="btn btn-outline-secondary my-2 my-sm-0" type="button">Novo
+		</a>
+	</div>
+</div>
+
+</div>
+</nav>
+
+<div th:each="pedido : ${pedidos}" class="card mb-4">
+
+	<th:block th:switch="${pedido.status.name()}">
+		<div th:case="'AGUARDANDO'" th:text="${pedido.nome}" class="card-header alert-warning">Nome doProduto</div>
+		<div th:case="'APROVADO'" th:text="${pedido.nome}" class="card-header alert-success">Nome doProduto</div>
+		<div th:case="'ENTREGUE'" th:text="${pedido.nome}" class="card-header alert-dark">Nome doProduto</div>
+		<th:block>
+
+			<div class="card-body">
+				<div class="row">
+					<div class="col-12 col-sm-8 mb-3">
+						<div class="row">
+							<div class="col-md-5">
+								Valor: <span th:if="${pedido.valor} != null" th:text="${'R$ ' + #numbers.formatDecimal(pedido.valor,3,'POINT',2,'COMMA')}">140,90</span>
+							</div>
+							<div class="col-md-7">
+								Data de Entrega: <span th:text="${#temporals.format(pedido.dataEntrega,'dd/MM/yyyy')}">10/04/2021</span>
+							</div>
+						</div>
+
+						<div>Produto</div>
+						<div>
+							<input th:value="${pedido.urlProduto}" class="form-control"
+								placeholder="Url produto" />
+						</div>
+
+						<div>Descrição</div>
+						<div>
+							<textarea th:text="${pedido.descricao}" class="form-control">descrição pedido</textarea>
+						</div>
+					</div>
+
+					<div class="col-12 col-sm-4 mt-2">
+						<div class="d-flex justify-content-center">
+							<img th:src="${pedido.urlImagem}" src="imagem"
+								alt="imagem_produto" class="rounded float-left img-thumbnail" width="250" height="100"/>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+</div>
+</body>
+</html>
