@@ -16,33 +16,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().
-		anyRequest().
-		authenticated().
-		and().
-		formLogin(form -> form
-				.loginPage("/login")
-				.permitAll()
-				);
+		http.authorizeRequests()
+		.anyRequest()
+		.authenticated()
+		.and()
+		.formLogin(form -> form.loginPage("/login")
+		.defaultSuccessUrl("/home", true).permitAll())
+		.logout(logout -> logout.logoutUrl("/logout")).csrf().disable();
 	}
-	
+
 	@Bean
 	@Override
 	public UserDetailsService userDetailsService() {
 		/*
-		 * withDefaultPasswordEncoder -> Depreciado, o seu uso é apenas didático.
-		 * Não é seguro em ambiente de produção.
+		 * withDefaultPasswordEncoder -> Depreciado, o seu uso é apenas didático. Não é
+		 * seguro em ambiente de produção.
 		 */
-		
+
 		/*
 		 * Houve excpetion, era necessário inserir algo como {noop} antes da senha
 		 */
-		 UserDetails user = User.withUsername("root")
-	     .password("{noop}41417852")
-	     .roles("USER")
-	     .build();
-
+		UserDetails user = User.withUsername("root").password("{noop}41417852").roles("USER").build();
 		return new InMemoryUserDetailsManager(user);
-		
+
 	}
 }
