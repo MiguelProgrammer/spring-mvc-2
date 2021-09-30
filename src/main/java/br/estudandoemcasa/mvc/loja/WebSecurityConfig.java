@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Override
+<<<<<<< HEAD
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
@@ -48,6 +49,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.passwordEncoder(encoder);
 		//.withUser(user);
 		
+=======
+	public UserDetailsService userDetailsService() {
+		/*
+		 * withDefaultPasswordEncoder -> Depreciado, o seu uso é apenas didático. Não é
+		 * seguro em ambiente de produção.
+		 */
+
+		/*
+		 * Houve excpetion, era necessário inserir algo como {noop} antes da senha
+		 */
+		UserDetails user = User.withUsername("root").password("{noop}").roles("USER").build();
+		return new InMemoryUserDetailsManager(user);
+
+>>>>>>> 42cdd861449908d7bfb9b9887b04a0503879d277
 	}
 
 }
