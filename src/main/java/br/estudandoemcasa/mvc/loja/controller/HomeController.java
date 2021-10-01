@@ -1,5 +1,6 @@
 package br.estudandoemcasa.mvc.loja.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,8 +28,8 @@ public class HomeController {
 	private PedidoRepository pedidoRepository;
 	
 	@GetMapping
-	public String home(Model resquest) {
-		resquest.addAttribute("pedidos", pedidoRepository.findAll().stream().collect(Collectors.toList()));
+	public String home(Model resquest, Principal principal) {
+		resquest.addAttribute("pedidos", pedidoRepository.findAllByUsuario(principal.getName()).stream().collect(Collectors.toList()));
 		return "home";
 	}
 	
