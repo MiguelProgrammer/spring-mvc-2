@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head th:replace="~{base :: head}"></head>
-<div th:replace="~{base::titulo('Meus Pedidos')}"></div>
+<head th:replace="~{/base :: head}"></head>
+<div th:replace="~{/base::titulo('Meus Pedidos')}"></div>
 
 <div class="mt-2 d-flex justify-content-between mt-4">
 	<div class="nav nav-tabs col-10" id="nav-tab" role="tablist">
-		<a href="/home" class="nav-link">Todos</a> <a
+		<a th:href="@{/usuario/pedido}" class="nav-link">Todos</a> <a
 			th:classappend="${status} == 'aguardando' ? 'active'"
-			href="/home/aguardando" class="nav-link">Aguardando</a> <a
+			th:href="@{/usuario/pedido/aguardando}" class="nav-link">Aguardando</a> <a
 			th:classappend="${status} == 'aprovado' ? 'active'"
-			href="/home/aprovado" class="nav-link">Aprovado</a> <a
+			th:href="@{/usuario/pedido/aprovado}" class="nav-link">Aprovado</a> <a
 			th:classappend="${status} == 'entregue' ? 'active'"
-			href="/home/entregue" class="nav-link">Entregue</a>
+			th:href="@{/usuario/pedido/entregue}" class="nav-link">Entregue</a>
 	</div>
 	<div class="ms-9 col-sm-1">
 		<a href="/pedido/formulario"
