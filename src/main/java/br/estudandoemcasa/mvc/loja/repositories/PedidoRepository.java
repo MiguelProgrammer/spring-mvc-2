@@ -13,9 +13,10 @@ import br.estudandoemcasa.mvc.loja.model.Pedido;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
-	List<Pedido> findByStatus(StatusPedido status);
+	List<Pedido> findByStatus (StatusPedido status);
 
 	@Query("select p from Pedido p join p.usuario u where u.username = :username")
 	List<Pedido> findAllByUsuario(@Param("username") String username);
+
 
 }

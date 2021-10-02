@@ -78,5 +78,11 @@ public class Pedido implements Serializable {
 	public void setStatus(StatusPedido status) {
 		this.status = status;
 	}
+	public User getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(User usuario) {
+		this.usuario = usuario;
+	}
 		
 }

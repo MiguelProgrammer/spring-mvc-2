@@ -2,7 +2,6 @@ package br.estudandoemcasa.mvc.loja.controller;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +27,9 @@ public class HomeController {
 	private PedidoRepository pedidoRepository;
 	
 	@GetMapping
-	public String home(Model resquest, Principal principal) {
-		resquest.addAttribute("pedidos", pedidoRepository.findAllByUsuario(principal.getName()).stream().collect(Collectors.toList()));
+	public String home(Model request, Principal principal) {
+		List<Pedido> pedidos = pedidoRepository.findAllByUsuario(principal.getName());
+		request.addAttribute("pedidos", pedidos);
 		return "home";
 	}
 	
