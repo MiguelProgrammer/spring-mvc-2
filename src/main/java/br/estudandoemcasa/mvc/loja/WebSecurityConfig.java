@@ -13,35 +13,40 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private DataSource dataSource;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+		.antMatchers("/home/**")
+		.permitAll()
 		.anyRequest()
 		.authenticated()
 		.and()
 		.formLogin(form -> form.loginPage("/login")
 		.defaultSuccessUrl("/usuario/pedido", true).permitAll())
-		.logout(logout -> logout.logoutUrl("/logout")).csrf().disable();
+		.logout(logout -> {
+			logout.logoutUrl("/logout")
+			.logoutSuccessUrl("/home");
+		
+		});
+
 	}
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		
+
 //		UserDetails user = 
 //				User.withUsername("miguel")
 //				.password(encoder.encode("1234"))
 //				.roles("ADM")
 //				.build();
-		
-		auth.jdbcAuthentication()
-		.dataSource(dataSource)
-		.passwordEncoder(encoder);//withUser(user);
-		
+
+		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(encoder);// withUser(user);
+
 	}
 
 }

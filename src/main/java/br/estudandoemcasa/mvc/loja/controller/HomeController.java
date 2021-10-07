@@ -15,10 +15,6 @@ import br.estudandoemcasa.mvc.loja.enums.StatusPedido;
 import br.estudandoemcasa.mvc.loja.model.Pedido;
 import br.estudandoemcasa.mvc.loja.repositories.PedidoRepository;
 
-/*
- * Minhas Actions
- * Métodos que atendem requisições HTTP são chamados de action
- */
 @Controller
 @RequestMapping("/home")
 public class HomeController {
@@ -28,21 +24,9 @@ public class HomeController {
 	
 	@GetMapping
 	public String home(Model request, Principal principal) {
-		List<Pedido> pedidos = pedidoRepository.findAll();
+		List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.ENTREGUE);
 		request.addAttribute("pedidos", pedidos);
 		return "usuario/home";
 	}
-	
-	@GetMapping("/{status}")
-	public String porStatus(@PathVariable("status") String status, Model request) {
-		List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.valueOf(status.toUpperCase()));
-		request.addAttribute("pedidos", pedidos);
-		request.addAttribute("status", status);
-		return "usuario/home";
-	}
-	
-	@ExceptionHandler(IllegalArgumentException.class)
-	public String onError() {
-		return "redirect:/home";
-	}
+
 }

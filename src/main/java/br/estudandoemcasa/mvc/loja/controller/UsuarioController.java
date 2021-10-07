@@ -26,7 +26,7 @@ public class UsuarioController {
 	public String home(Model request, Principal principal) {
 		List<Pedido> pedidos = pedidoRepository.findAllByUsuario(principal.getName());
 		request.addAttribute("pedidos", pedidos);
-		return "home";
+		return "usuario/home";
 	}
 
 	@GetMapping("pedido/{status}")
@@ -34,12 +34,12 @@ public class UsuarioController {
 		List<Pedido> pedidos = pedidoRepository.findByStatusAndUser(StatusPedido.valueOf(status.toUpperCase()),principal.getName());
 		request.addAttribute("pedidos", pedidos);
 		request.addAttribute("status", status);
-		return "home";
+		return "usuario/home";
 	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
 	public String onError() {
-		return "redirect:/home";
+		return "redirect:/usuario/home";
 	}
 
 }
