@@ -1,36 +1,31 @@
-package br.estudandoemcasa.mvc.loja.controller;
+package br.estudandoemcasa.mvc.loja.api;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.estudandoemcasa.mvc.loja.enums.StatusPedido;
 import br.estudandoemcasa.mvc.loja.model.Pedido;
 import br.estudandoemcasa.mvc.loja.repositories.PedidoRepository;
 
-@Controller
-@RequestMapping("/home")
-public class HomeController {
+@RestController
+@RequestMapping("/api/pedidos")
+public class PedidosRest {
 	
-	@Autowired
+	@Autowired 
 	private PedidoRepository pedidoRepository;
-	
-	@GetMapping
-	public String home(Model request, Principal principal) {
+
+	@GetMapping("aguardando")
+	public List<Pedido> getPedidosAguardando() {
 		
-		Sort sort = Sort.by("id").ascending();
+		Sort sort = Sort.by("id").descending();
 		PageRequest pagination = PageRequest.of(0,1,sort);
 		
-		List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.ENTREGUE, pagination);
-		request.addAttribute("pedidos", pedidos);
-		return "usuario/home";
+		return pedidoRepository.findByStatus(StatusPedido.AGUARDANDO, pagination);
 	}
-
 }

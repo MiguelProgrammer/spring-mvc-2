@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -28,10 +30,11 @@ public class User {
 		return username;
 	}
 
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}

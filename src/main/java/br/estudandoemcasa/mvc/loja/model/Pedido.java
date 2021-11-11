@@ -33,7 +33,7 @@ public class Pedido implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private User usuario;
 	
 	public String getNome() {
