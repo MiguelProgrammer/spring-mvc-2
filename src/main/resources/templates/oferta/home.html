@@ -3,7 +3,8 @@
 <head th:replace="~{/base :: head}"></head>
 <div th:replace="~{/base::titulo('Meus Pedidos')}"></div>
 
-<div class="mt-2 d-flex justify-content-between mt-4"  sec:authorize="isAuthenticated()">
+<div class="mt-2 d-flex justify-content-between mt-4"
+	sec:authorize="isAuthenticated()">
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-light nav nav-tabs col-12"
 		id="nav-tab" role="tablist">
@@ -29,15 +30,12 @@
 </div>
 </nav>
 
-<div th:each="pedido : ${pedidos}" class="card mb-4">
+<div v-for="pedido in pedidos" class="card mb-4">
 
-	<th:block th:switch="${pedido.status.name()}">
-		<div th:case="'AGUARDANDO'" th:text="${pedido.nome}"
-			class="card-header alert-warning">Nome doProduto</div>
-		<div th:case="'APROVADO'" th:text="${pedido.nome}"
-			class="card-header alert-success">Nome doProduto</div>
-		<div th:case="'ENTREGUE'" th:text="${pedido.nome}"
-			class="card-header alert-dark">Nome doProduto</div>
+	<th:block th:switch="{pedido.status.name()}">
+		<div th:case="'AGUARDANDO'" class="card-header alert-warning">{{pedido.nome}}</div>
+		<div th:case="'APROVADO'" class="card-header alert-success">{{pedido.nome}}</div>
+		<div th:case="'ENTREGUE'" class="card-header alert-dark">{{pedido.nome}}</div>
 		<th:block>
 
 			<div class="card-body">
@@ -45,33 +43,31 @@
 					<div class="col-12 col-sm-8 mb-3">
 						<div class="row">
 							<div class="col-md-5">
-								Valor: <span th:if="${pedido.valor} != null"
-									th:text="${'R$ ' + #numbers.formatDecimal(pedido.valor,3,'POINT',2,'COMMA')}">140,90</span>
+								Valor: <input />
 							</div>
 							<div class="col-md-7">
-								Data de Entrega: <span
-									th:text="${#temporals.format(pedido.dataEntrega,'dd/MM/yyyy')}">10/04/2021</span>
+								Data de Entrega: <input />
 							</div>
 						</div>
 
 						<div>Produto</div>
 						<div>
-							<input th:value="${pedido.urlProduto}" class="form-control"
-								placeholder="Url produto" />
+							<a v-bind:href="pedido.urlProduto" class="form-control"
+								placeholder="Url produto" />{{pedido.nome}}</a>
 						</div>
-
-						<div>DescriÃ§Ã£o</div>
+ 
+						<div>Descrição</div>
 						<div>
-							<textarea th:text="${pedido.descricao}" class="form-control">descriÃ§Ã£o pedido</textarea>
+							<textarea class="form-control">{{pedido.descricao}}</textarea>
 						</div>
 					</div>
 
 
 					<div class="col-12 col-sm-4 mt-2">
 						<div class="d-flex justify-content-center">
-							<img th:src="${pedido.urlImagem}" src="imagem"
-								alt="imagem_produto" class="rounded float-left img-thumbnail"
-								width="250" height="100" />
+							<img v-bind:src="pedido.urlImagem" alt="imagem_produto"
+								class="rounded float-left img-thumbnail" width="250"
+								height="100" />
 
 						</div>
 					</div>
@@ -79,5 +75,37 @@
 			</div>
 </div>
 </div>
+<script>
+	function onLoad() {
+		var app = new Vue(
+				{
+					el : '#ofertas',
+					data : {
+						pedidos : [
+								{
+									"id" : 4,
+									"nomeProduto" : "Wireless Earbuds TaoTronics",
+									"valorNegociado" : null,
+									"dataDaEntrega" : null,
+									"urlProduto" : "https://www.amazon.com/TaoTronics-SoundLiberty-79-Technology-Waterproof/dp/B08397W1F7/ref=gbps_img_m-9_475e_ff9c5f1b?smid=AAJVIARPZY8SB&pf_rd_p=5d86def2-ec10-4364-9008-8fbccf30475e&pf_rd_s=merchandised-search-9&pf_rd_t=101&pf_rd_i=15529609011&pf_rd_m=ATVPDKIKX0DER&pf_rd_r=WD9HGMRTX91GNP8DKA4Z",
+									"urlImagem" : "https://images-na.ssl-images-amazon.com/images/I/51SgO0fSIuL._AC_SL1300_.jpg",
+									"descricao" : "descrição Wireless Earbuds TaoTronics",
+									"status" : "AGUARDANDO"
+								},
+								{
+									"id" : 3,
+									"nomeProduto" : "ASICS Men's GEL Venture 5 Running",
+									"valorNegociado" : null,
+									"dataDaEntrega" : null,
+									"urlProduto" : "https://www.amazon.com/ASICS-Gel-Venture-5-M-Silver-Light/dp/B00NUZD2PW?ref_=Oct_DLandingS_D_6340036f_60&smid=A2NEM58BFPMEIL",
+									"urlImagem" : "https://images-na.ssl-images-amazon.com/images/I/718OQVH7AnL._AC_UX625_.jpg",
+									"descricao" : "descrição para ASICS ",
+									"status" : "AGUARDANDO"
+								} ]
+					}
+				})
+	}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </body>
 </html>
